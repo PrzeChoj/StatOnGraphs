@@ -1,0 +1,5 @@
+Zadania:
+1. Wypisz zachłannie wszystkie doskonałe ponumerowanie dekomponowalnego grafu G
+2. Zaimplementować MCS
+
+Wejście w postaci macierzy incydencji (symetryczna 0 i 1)

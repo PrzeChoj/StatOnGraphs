@@ -1,0 +1,15 @@
+/Users/adam/Desktop/programiki.nosync/GrafKolo/CS/Dekomponowalnosc/Dekomponowalnosc/bin/Debug/net7.0/Dekomponowalnosc
+/Users/adam/Desktop/programiki.nosync/GrafKolo/CS/Dekomponowalnosc/Dekomponowalnosc/bin/Debug/net7.0/Dekomponowalnosc.deps.json
+/Users/adam/Desktop/programiki.nosync/GrafKolo/CS/Dekomponowalnosc/Dekomponowalnosc/bin/Debug/net7.0/Dekomponowalnosc.runtimeconfig.json
+/Users/adam/Desktop/programiki.nosync/GrafKolo/CS/Dekomponowalnosc/Dekomponowalnosc/bin/Debug/net7.0/Dekomponowalnosc.dll
+/Users/adam/Desktop/programiki.nosync/GrafKolo/CS/Dekomponowalnosc/Dekomponowalnosc/bin/Debug/net7.0/Dekomponowalnosc.pdb
+/Users/adam/Desktop/programiki.nosync/GrafKolo/CS/Dekomponowalnosc/Dekomponowalnosc/obj/Debug/net7.0/Dekomponowalnosc.csproj.AssemblyReference.cache
+/Users/adam/Desktop/programiki.nosync/GrafKolo/CS/Dekomponowalnosc/Dekomponowalnosc/obj/Debug/net7.0/Dekomponowalnosc.GeneratedMSBuildEditorConfig.editorconfig
+/Users/adam/Desktop/programiki.nosync/GrafKolo/CS/Dekomponowalnosc/Dekomponowalnosc/obj/Debug/net7.0/Dekomponowalnosc.AssemblyInfoInputs.cache
+/Users/adam/Desktop/programiki.nosync/GrafKolo/CS/Dekomponowalnosc/Dekomponowalnosc/obj/Debug/net7.0/Dekomponowalnosc.AssemblyInfo.cs
+/Users/adam/Desktop/programiki.nosync/GrafKolo/CS/Dekomponowalnosc/Dekomponowalnosc/obj/Debug/net7.0/Dekomponowalnosc.csproj.CoreCompileInputs.cache
+/Users/adam/Desktop/programiki.nosync/GrafKolo/CS/Dekomponowalnosc/Dekomponowalnosc/obj/Debug/net7.0/Dekomponowalnosc.dll
+/Users/adam/Desktop/programiki.nosync/GrafKolo/CS/Dekomponowalnosc/Dekomponowalnosc/obj/Debug/net7.0/refint/Dekomponowalnosc.dll
+/Users/adam/Desktop/programiki.nosync/GrafKolo/CS/Dekomponowalnosc/Dekomponowalnosc/obj/Debug/net7.0/Dekomponowalnosc.pdb
+/Users/adam/Desktop/programiki.nosync/GrafKolo/CS/Dekomponowalnosc/Dekomponowalnosc/obj/Debug/net7.0/Dekomponowalnosc.genruntimeconfig.cache
+/Users/adam/Desktop/programiki.nosync/GrafKolo/CS/Dekomponowalnosc/Dekomponowalnosc/obj/Debug/net7.0/ref/Dekomponowalnosc.dll
