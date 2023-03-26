@@ -1,19 +1,18 @@
-﻿// See https://aka.ms/new-console-template for more information
-
-using System.Net.Mail;
+﻿
+namespace Dekomponowalnosc;
 
 class Decompose
 {
-    private int[,] macierzIncydencji;
+    private int[,] _macierzIncydencji;
 
     public Decompose(int[,] macierzIncydencji)
     {
-        this.macierzIncydencji = macierzIncydencji;
+        this._macierzIncydencji = macierzIncydencji;
     }
 
-    public void wypiszWszystkieDoskonalePonumerowania()
+    public void WypiszWszystkieDoskonalePonumerowania()
     {
-        int n = this.macierzIncydencji.GetLength(0);
+        int n = this._macierzIncydencji.GetLength(0);
         int[] outDecompose = new int[n];
         HashSet<int> leftVertexes = new HashSet<int>(n);
         for (int i = 0; i < n; i++)
@@ -21,16 +20,11 @@ class Decompose
             leftVertexes.Add(i);
         }
 
-        while (leftVertexes.Equals(new HashSet<int>(n))) // Dopoki nie jest pusty // TODO Jesli nie jest dekomponowalny
+        while (leftVertexes.Count != 0) // Dopoki nie jest pusty // TODO Jesli nie jest dekomponowalny
         {
-            foreach (int v in leftVertexes) // To nie dizala xd
-            {
-                if (isSimplicial(v, leftVertexes))
-                {
-                    outDecompose[leftVertexes.Count - 1] = v;
-                    leftVertexes.Remove(v);
-                }
-            }
+            int v = FindSiplicial(leftVertexes);
+            outDecompose[leftVertexes.Count - 1] = v;
+            leftVertexes.Remove(v);
         }
 
         for (int i = 0; i < n; i++)
@@ -39,12 +33,26 @@ class Decompose
         }
     }
 
-    private bool isSimplicial(int v, HashSet<int> leftVertexes)
+    private int FindSiplicial(HashSet<int> leftVertexes)
+    {
+        // Jesli graf jest dekomponowalny, to jakis simplicialny musi byc
+        foreach (int v in leftVertexes)
+        {
+            if (IsSimplicial(v, leftVertexes))
+            {
+                return (v);
+            }
+        }
+
+        throw new Exception("Podany graf nie jest dekomponowalny");
+    }
+
+    private bool IsSimplicial(int v, HashSet<int> leftVertexes)
     {
         HashSet<int> vNeighbours = new HashSet<int>();
         foreach (int w in leftVertexes)
         {
-            if (this.macierzIncydencji[v, w] == 1)
+            if (this._macierzIncydencji[v, w] == 1)
             {
                 vNeighbours.Add(w);
             }
@@ -54,7 +62,7 @@ class Decompose
         {
             foreach (int w2 in vNeighbours)
             {
-                if (this.macierzIncydencji[w, w2] == 0)
+                if (this._macierzIncydencji[w, w2] == 0 && w != w2)
                 {
                     return false;
                 }
