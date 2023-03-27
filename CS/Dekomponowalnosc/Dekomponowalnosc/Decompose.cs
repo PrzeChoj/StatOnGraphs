@@ -1,4 +1,6 @@
 ﻿
+using System.Runtime.InteropServices.JavaScript;
+
 namespace Dekomponowalnosc;
 
 class Decompose
@@ -10,7 +12,7 @@ class Decompose
         _macierzIncydencji = macierzIncydencji;
     }
 
-    public void WypiszWszystkieDoskonalePonumerowania(int[]? outDecompose = null, HashSet<int>? leftVertexes = null) // TODO Jesli nie jest dekomponowalny
+    public List<int[]> ZnajdzWszystkieDoskonalePonumerowania(int[]? outDecompose = null, HashSet<int>? leftVertexes = null)
     {
         // Zalozmy, ze leftVertexes jest niepusty
         
@@ -33,6 +35,8 @@ class Decompose
             }
         }
 
+        List<int[]> outDecompositions = new List<int[]>();
+
         List<int> vAll = FindAllSiplicial(leftVertexes);
         foreach (int v in vAll)
         {
@@ -44,17 +48,19 @@ class Decompose
             myCopyLeftVertexes.Remove(v);
             if (myCopyLeftVertexes.Count == 0) // Jestem juz na koncu DFS-a
             {
-                for (int i = 0; i < myCopyOutDecompose.Length - 1; i++)
-                {
-                    Console.Write($"{myCopyOutDecompose[i]}, ");
-                }
-                Console.WriteLine($"{myCopyOutDecompose[^1]}");
+                outDecompositions.Add(myCopyOutDecompose);
             }
             else // Jeszcze z DFS-em musze pojsc glebiej
             {
-                WypiszWszystkieDoskonalePonumerowania(myCopyOutDecompose, myCopyLeftVertexes);
+                List<int[]> deeper = ZnajdzWszystkieDoskonalePonumerowania(myCopyOutDecompose, myCopyLeftVertexes);
+                foreach (int[] decompositon in deeper)
+                {
+                    outDecompositions.Add(decompositon); // Tu jest sporo kopjowania, ale tylko referencji
+                }
             }
         }
+
+        return outDecompositions;
     }
 
     private List<int> FindAllSiplicial(HashSet<int> leftVertexes)

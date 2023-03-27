@@ -22,7 +22,19 @@ macierzIncydencji[6, 5] = 1;
 
 
 Decompose myDecompose = new Decompose(macierzIncydencji);
-myDecompose.WypiszWszystkieDoskonalePonumerowania();
+
+
+List<int[]> allDecompositoins = myDecompose.ZnajdzWszystkieDoskonalePonumerowania();
+
+foreach (int[] decompositoin in allDecompositoins)
+{
+    for (int i = 0; i < decompositoin.Length - 1; i++)
+    {
+        Console.Write($"{decompositoin[i]}, ");
+    }
+    Console.WriteLine($"{decompositoin[^1]}");
+}
+
 
 Console.WriteLine("\n\nMCS:");
 
