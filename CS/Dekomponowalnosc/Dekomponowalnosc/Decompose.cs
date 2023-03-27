@@ -7,44 +7,67 @@ class Decompose
 
     public Decompose(int[,] macierzIncydencji)
     {
-        this._macierzIncydencji = macierzIncydencji;
+        _macierzIncydencji = macierzIncydencji;
     }
 
-    public void WypiszWszystkieDoskonalePonumerowania()
+    public void WypiszWszystkieDoskonalePonumerowania(int[]? outDecompose = null, HashSet<int>? leftVertexes = null) // TODO Jesli nie jest dekomponowalny
     {
-        int n = this._macierzIncydencji.GetLength(0);
-        int[] outDecompose = new int[n];
-        HashSet<int> leftVertexes = new HashSet<int>(n);
-        for (int i = 0; i < n; i++)
+        // Zalozmy, ze leftVertexes jest niepusty
+        
+        // Funkcja przeglada graf w glab. Idzie do wierzcholka wtedy, gdy jest simplicjalny
+        // Jak dojdzie do konca i nie ma juz wiecej wierzcholkow, to printuje swoja scieszke
+        
+        // Jesli dany graf nie bedzie dekomponowany, to po prostu nic sie nie wypisze
+        
+        // Implementacja nie jest optymalna, duzo niepotrzebnego kopjowania,
+        // przegladania wielokrotnie tych sanych scierzek itp.
+        
+        if (leftVertexes == null) // poczatek rekurencji
         {
-            leftVertexes.Add(i);
+            int n = _macierzIncydencji.GetLength(0);
+            outDecompose = new int[n];
+            leftVertexes = new HashSet<int>(n);
+            for (int i = 0; i < n; i++)
+            {
+                leftVertexes.Add(i);
+            }
         }
 
-        while (leftVertexes.Count != 0) // Dopoki nie jest pusty // TODO Jesli nie jest dekomponowalny
+        List<int> vAll = FindAllSiplicial(leftVertexes);
+        foreach (int v in vAll)
         {
-            int v = FindSiplicial(leftVertexes);
-            outDecompose[leftVertexes.Count - 1] = v;
-            leftVertexes.Remove(v);
-        }
-
-        for (int i = 0; i < n; i++)
-        {
-            Console.WriteLine(outDecompose[i]);
+            // Musze skopjowac, zeby kazda galas miala swoja wersje
+            var myCopyOutDecompose = (int[])outDecompose!.Clone();
+            var myCopyLeftVertexes = new HashSet<int>(leftVertexes);
+            
+            myCopyOutDecompose[myCopyLeftVertexes.Count - 1] = v;
+            myCopyLeftVertexes.Remove(v);
+            if (myCopyLeftVertexes.Count == 0) // Jestem juz na koncu DFS-a
+            {
+                for (int i = 0; i < myCopyOutDecompose.Length - 1; i++)
+                {
+                    Console.Write($"{myCopyOutDecompose[i]}, ");
+                }
+                Console.WriteLine($"{myCopyOutDecompose[^1]}");
+            }
+            else // Jeszcze z DFS-em musze pojsc glebiej
+            {
+                WypiszWszystkieDoskonalePonumerowania(myCopyOutDecompose, myCopyLeftVertexes);
+            }
         }
     }
 
-    private int FindSiplicial(HashSet<int> leftVertexes)
+    private List<int> FindAllSiplicial(HashSet<int> leftVertexes)
     {
-        // Jesli graf jest dekomponowalny, to jakis simplicialny musi byc
+        List<int> outTable = new List<int>();
         foreach (int v in leftVertexes)
         {
             if (IsSimplicial(v, leftVertexes))
             {
-                return (v);
+                outTable.Add(v);
             }
         }
-
-        throw new Exception("Podany graf nie jest dekomponowalny");
+        return outTable;
     }
 
     private bool IsSimplicial(int v, HashSet<int> leftVertexes)
@@ -52,19 +75,21 @@ class Decompose
         HashSet<int> vNeighbours = new HashSet<int>();
         foreach (int w in leftVertexes)
         {
-            if (this._macierzIncydencji[v, w] == 1)
+            if (_macierzIncydencji[v, w] == 1)
             {
                 vNeighbours.Add(w);
             }
         }
+        
+        // vNeighbours to zbior sasiadow v
 
         foreach (int w in vNeighbours)
         {
             foreach (int w2 in vNeighbours)
             {
-                if (this._macierzIncydencji[w, w2] == 0 && w != w2)
+                if (_macierzIncydencji[w, w2] == 0 && w != w2)
                 {
-                    return false;
+                    return false; // Sa sasiedzi v, ktorzy nie sa swoimi sasiadami
                 }
             }
         }
