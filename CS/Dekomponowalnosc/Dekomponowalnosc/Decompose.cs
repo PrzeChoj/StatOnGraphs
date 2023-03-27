@@ -110,8 +110,9 @@ class Decompose
             notFound.Add(i);
         }
 
-        for (int wypelnione = 1; wypelnione < n; wypelnione++)
+        for (int wypelnione = 1; wypelnione < n; wypelnione++) // glowna pentla
         {
+            // Znajdzmy bestVertex, czyli wierzcholek z najwiekrza liczba sasiadow wsord juz ponumerowanych
             int bestVertex = -1;
             int bigestNumberOfNeighbours = -1;
             int thisNumberOfNeighbours;
@@ -125,12 +126,14 @@ class Decompose
                     bigestNumberOfNeighbours = thisNumberOfNeighbours;
                 }
             }
+            // bestVertex znaleziony
 
             outDecompose[wypelnione] = bestVertex;
             found.Add(bestVertex);
             notFound.Remove(bestVertex);
         }
         
+        // Wypisanie
         for (int i = 0; i < outDecompose.Length - 1; i++)
         {
             Console.Write($"{outDecompose[i]}, ");
