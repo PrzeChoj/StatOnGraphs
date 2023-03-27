@@ -97,8 +97,58 @@ class Decompose
         return true;
     }
 
-    void MCS()
+    public void MCS()
     {
-        Console.WriteLine("MCS!");
+        int n = _macierzIncydencji.GetLength(0);
+        int[] outDecompose = new int[n];
+        
+        outDecompose[0] = 0; // Pierwszy jest jakikolwiek
+        HashSet<int> found = new HashSet<int>(n){0};
+        HashSet<int> notFound = new HashSet<int>(n);
+        for (int i = 1; i < n; i++)
+        {
+            notFound.Add(i);
+        }
+
+        for (int wypelnione = 1; wypelnione < n; wypelnione++)
+        {
+            int bestVertex = -1;
+            int bigestNumberOfNeighbours = -1;
+            int thisNumberOfNeighbours;
+            
+            foreach (int v in notFound)
+            {
+                thisNumberOfNeighbours = GetNumberOfFoundNeighbours(v, found);
+                if (thisNumberOfNeighbours > bigestNumberOfNeighbours)
+                {
+                    bestVertex = v;
+                    bigestNumberOfNeighbours = thisNumberOfNeighbours;
+                }
+            }
+
+            outDecompose[wypelnione] = bestVertex;
+            found.Add(bestVertex);
+            notFound.Remove(bestVertex);
+        }
+        
+        for (int i = 0; i < outDecompose.Length - 1; i++)
+        {
+            Console.Write($"{outDecompose[i]}, ");
+        }
+        Console.WriteLine($"{outDecompose[^1]}");
+    }
+
+    public int GetNumberOfFoundNeighbours(int v, HashSet<int> found)
+    {
+        int numberOfFoundNeighbours = 0;
+        for (int i = 0; i < _macierzIncydencji.GetLength(0); i++)
+        {
+            if (_macierzIncydencji[v, i] == 1 && found.Contains(i))
+            {
+                numberOfFoundNeighbours++;
+            }
+        }
+
+        return numberOfFoundNeighbours;
     }
 }

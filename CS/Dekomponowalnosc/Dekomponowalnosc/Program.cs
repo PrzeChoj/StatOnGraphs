@@ -23,4 +23,9 @@ macierzIncydencji[6, 5] = 1;
 
 Decompose myDecompose = new Decompose(macierzIncydencji);
 myDecompose.WypiszWszystkieDoskonalePonumerowania();
+
+Console.WriteLine("\n\nMCS:");
+
+myDecompose.MCS();
+
 Console.WriteLine("Done");
