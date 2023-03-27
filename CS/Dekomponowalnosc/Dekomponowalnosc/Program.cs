@@ -26,6 +26,19 @@ myDecompose.WypiszWszystkieDoskonalePonumerowania();
 
 Console.WriteLine("\n\nMCS:");
 
-myDecompose.MCS();
+int[]? outDecompose = myDecompose.MCS();
+
+if (outDecompose == null)
+{
+    Console.WriteLine("Graf nie jest dekomponowalny");
+}
+else
+{
+    for (int i = 0; i < outDecompose.Length - 1; i++)
+    {
+        Console.Write($"{outDecompose[i]}, ");
+    }
+    Console.WriteLine($"{outDecompose[^1]}");
+}
 
 Console.WriteLine("Done");

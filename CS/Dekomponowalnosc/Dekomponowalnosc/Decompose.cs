@@ -97,7 +97,7 @@ class Decompose
         return true;
     }
 
-    public void MCS()
+    public int[]? MCS()
     {
         int n = _macierzIncydencji.GetLength(0);
         int[] outDecompose = new int[n];
@@ -128,17 +128,19 @@ class Decompose
             }
             // bestVertex znaleziony
 
+            // Sprawdzmy, czy found \cup ne(bestVertex) jest klitka
+            // Czyli, czy bestVertex jest simplicjalny
+            if (!IsSimplicial(bestVertex, found))
+            {
+                return null;
+            }
+            
             outDecompose[wypelnione] = bestVertex;
             found.Add(bestVertex);
             notFound.Remove(bestVertex);
         }
-        
-        // Wypisanie
-        for (int i = 0; i < outDecompose.Length - 1; i++)
-        {
-            Console.Write($"{outDecompose[i]}, ");
-        }
-        Console.WriteLine($"{outDecompose[^1]}");
+
+        return outDecompose;
     }
 
     public int GetNumberOfFoundNeighbours(int v, HashSet<int> found)
@@ -146,7 +148,7 @@ class Decompose
         int numberOfFoundNeighbours = 0;
         for (int i = 0; i < _macierzIncydencji.GetLength(0); i++)
         {
-            if (_macierzIncydencji[v, i] == 1 && found.Contains(i))
+            if (_macierzIncydencji[v, i] == 1 && v != i && found.Contains(i))
             {
                 numberOfFoundNeighbours++;
             }
